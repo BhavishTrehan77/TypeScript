@@ -1,5 +1,5 @@
 import express from 'express';
-import { CreateUser, DeleteUser, GetUser, GetUserById, PatchUser } from '../controllers/User.controllers.js';
+import { CreateUser, DeleteUser, GetUser, GetUserById, Login, PatchUser, Signup } from '../controllers/User.controllers.js';
 
 const router=express.Router();
 
@@ -8,7 +8,8 @@ router.get("/get",GetUser)
 router.get("/get/:id",GetUserById)
 router.patch("/update/:id",PatchUser)
 router.delete("/delete/:id",DeleteUser)
-
+router.post("/signup",Signup)
+router.post("/login",Login)
 
 export default router
 
