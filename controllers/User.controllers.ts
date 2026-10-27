@@ -2,9 +2,15 @@ import  type { Request, Response } from "express";
 
 import User from "../model/User.model.js";
 
-
-export const CreateUser=async(req:Request,res:Response)=>{
+interface CreateUserBody{
+            name: string;
+            email: string;
+            password:string;
+            role:"user"|"admin";
+        }
+export const CreateUser=async(req:Request<{},{},CreateUserBody>,res:Response)=>{
     try{
+        
         const{name,email,password,role}=req.body
         const user=await User.create({
             name,email,password,role
@@ -57,6 +63,13 @@ export const GetUserById=async(req:Request,res:Response)=>{
 
 export const PatchUser=async(req:Request,res:Response)=>{
     try{
+        //Currently typescirpt dont know what is present inside req.body  so we will create one interface and use it fruther
+    interface CreateUserBody{
+        name:string,
+        email:string,
+        password:string,
+        role?:"user"|"admin"
+    } 
     const id=req.params.id
     const user=await User.findByIdAndUpdate(id,req.body)
     res.json({
